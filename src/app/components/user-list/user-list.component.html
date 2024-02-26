@@ -1,0 +1,31 @@
+<table mat-table [dataSource]="dataSource" matSort>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+    <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+  </ng-container>
+
+  <!-- Role Column -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+    <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+  </ng-container>
+
+  <!-- Is Email Verified Column -->
+  <ng-container matColumnDef="isEmailVerified">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Verified </th>
+    <td mat-cell *matCellDef="let user"> {{user.isEmailVerified ? 'Yes' : 'No'}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
