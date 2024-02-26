@@ -20,23 +20,33 @@ export class UserService {
     return this.http.get<UserResults>(this.apiUrl, { headers });
   }
 
-  getUserById(id: number): Observable<User> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<User>(url);
-  }
-
-  createUser(accessToken: string | null, user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user);
-  }
-
-  updateUser(accessToken: string | null, user: User): Observable<User> {
-
+  getUserById(accessToken: string | null, id: String): Observable<User> {
+    
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${accessToken}`
     });
 
-    const url = `${this.apiUrl}/${user.id}`;
-    return this.http.put<User>(url, user);
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<User>(url, { headers });
+  }
+
+  createUser(accessToken: string | null, user: User): Observable<User> {
+    
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
+    return this.http.post<User>(this.apiUrl, user, { headers });
+  }
+
+  updateUser(accessToken: string | null, id: String, user: User): Observable<User> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+    console.log(user)
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.patch<User>(url, user, { headers });
   }
 
   deleteUser(accessToken: string | null, id: String): Observable<void> {

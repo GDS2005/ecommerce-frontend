@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/services/user.service';
 import { User, UserResults } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -21,13 +22,12 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService, private authService: AuthService) { 
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { 
     this.users = new MatTableDataSource<UserResults>([]);
   }
 
   ngOnInit(): void {
     const userData = this.userService.getUsers(localStorage.getItem('access_token')).subscribe((userData: any) => {
-      console.log(userData);
       this.dataSource.data = userData.results;
     });
   }
@@ -52,6 +52,6 @@ export class UserListComponent implements OnInit {
   }
   
   modifyUser(userId: string) {
-    this.userService.deleteUser(localStorage.getItem('access_token'), userId);
+    this.router.navigate(['/edit', userId]);
   }
 }
