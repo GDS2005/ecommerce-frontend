@@ -25,17 +25,27 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
-  createUser(user: User): Observable<User> {
+  createUser(accessToken: string | null, user: User): Observable<User> {
     return this.http.post<User>(this.apiUrl, user);
   }
 
-  updateUser(user: User): Observable<User> {
+  updateUser(accessToken: string | null, user: User): Observable<User> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
     const url = `${this.apiUrl}/${user.id}`;
     return this.http.put<User>(url, user);
   }
 
-  deleteUser(id: number): Observable<void> {
+  deleteUser(accessToken: string | null, id: String): Observable<void> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(url, { headers });
   }
 }

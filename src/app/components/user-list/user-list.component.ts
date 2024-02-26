@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UserListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'role', 'isEmailVerified']; // Add more columns as needed
+  displayedColumns: string[] = ['name', 'email', 'role', 'isEmailVerified', 'actions']; // Add more columns as needed
   users: MatTableDataSource<UserResults>;
   dataSource = new MatTableDataSource<any>();
   accessToken: string = ''; // Set the access token here
@@ -39,5 +39,19 @@ export class UserListComponent implements OnInit {
     if (this.users.paginator) {
       this.users.paginator.firstPage();
     }
+  }
+  deleteUser(userId: string) {
+    this.userService.deleteUser(localStorage.getItem('access_token'), userId).subscribe(
+      () => {
+        window.location.reload();
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+  }
+  
+  modifyUser(userId: string) {
+    this.userService.deleteUser(localStorage.getItem('access_token'), userId);
   }
 }

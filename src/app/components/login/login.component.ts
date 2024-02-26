@@ -20,14 +20,11 @@ export class LoginComponent {
   login(): void {
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
-        // Handle successful login response here
         this.authService.saveTokens(response.tokens);
         console.log('Login successful', response);
-        // You can store the access token in localStorage or a service for future requests
         this.router.navigate(['/user-list']);
       },
       (error) => {
-        // Handle login error here
         console.error('Login error', error);
         this.errorMessage = 'Invalid email or password';
       }

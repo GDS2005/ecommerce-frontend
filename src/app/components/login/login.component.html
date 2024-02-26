@@ -38,13 +38,13 @@
       </div>
       <div *ngIf="errorMessage" class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
         <p class="font-bold">¡Error!</p>
-        <p>User or Password incorrect</p>
+        <p>Something when wrong</p>
       </div>
     </form>
 
     <p class="mt-10 text-center text-sm text-gray-500">
       Not a member?
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register now</a>
+      <a href="#" routerLink="/sing-up" routerLinkActive="active" ariaCurrentWhenActive="page" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register now</a>
     </p>
   </div>
 </div>
