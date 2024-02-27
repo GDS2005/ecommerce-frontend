@@ -1,44 +1,54 @@
-<table mat-table [dataSource]="dataSource" matSort>
+<header class="bg-white shadow">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+  </div>
+</header>
+<main>
+  <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <table class="w-full table-auto text-center" mat-table [dataSource]="dataSource" matSort>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
-  </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+      </ng-container>
+    
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+      </ng-container>
+    
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+        <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+      </ng-container>
+    
+      <!-- Is Email Verified Column -->
+      <ng-container matColumnDef="isEmailVerified">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Verified </th>
+        <td mat-cell *matCellDef="let user"> {{user.isEmailVerified ? 'Yes' : 'No'}} </td>
+      </ng-container>
+    
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="modifyUser(user.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</main>
 
-  <!-- Email Column -->
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-    <td mat-cell *matCellDef="let user"> {{user.email}} </td>
-  </ng-container>
-
-  <!-- Role Column -->
-  <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-    <td mat-cell *matCellDef="let user"> {{user.role}} </td>
-  </ng-container>
-
-  <!-- Is Email Verified Column -->
-  <ng-container matColumnDef="isEmailVerified">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Verified </th>
-    <td mat-cell *matCellDef="let user"> {{user.isEmailVerified ? 'Yes' : 'No'}} </td>
-  </ng-container>
-
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> Actions </th>
-    <td mat-cell *matCellDef="let user">
-      <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
-        <mat-icon>Delete</mat-icon>
-      </button>
-      <button mat-icon-button color="primary" (click)="modifyUser(user.id)">
-        <mat-icon>Edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

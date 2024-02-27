@@ -10,12 +10,10 @@ export class AuthService {
   apiUrl = 'http://localhost:3000/v1/auth';
   private readonly ACCESS_TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
-  private isAuthenticated = false;
 
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    this.isAuthenticated = true;
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password });
   }
 
@@ -36,7 +34,13 @@ export class AuthService {
     return localStorage.getItem(this.REFRESH_TOKEN_KEY);
   }
 
-  getIsAuthenticated(){
-    return this.isAuthenticated;
-}
+  isLoggedIn(): boolean {
+    return !!this.getAccessToken();
+  }
+
+  logout() {
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, '');
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    window.location.reload();
+  }
 }

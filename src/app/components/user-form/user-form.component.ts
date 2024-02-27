@@ -14,7 +14,7 @@ export class UserFormComponent implements OnInit {
   userForm!: FormGroup;
   id!: String;
 
-  constructor(private service: UserService, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private service: UserService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
   
   ngOnInit(): void {
     this.initializeForm();
@@ -28,15 +28,15 @@ export class UserFormComponent implements OnInit {
           if (user) {
             console.log(user)
             this.userForm.patchValue(user); // Populate form with user data
-          } else {
+          }else {
             console.error('User not found');
           }
-        });
+          });
+        }
       }
-    }
-    else{
-      this.mode = 'add';
-    }
+      else{
+        this.mode = 'add';
+      }
     });
   }
 
@@ -80,6 +80,7 @@ export class UserFormComponent implements OnInit {
           console.error('Error creating:', error);
         });
     }
+    this.router.navigate(['/user-list']);
   }
     
 }

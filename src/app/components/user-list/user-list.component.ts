@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'role', 'isEmailVerified', 'actions']; // Add more columns as needed
+  displayedColumns: string[] = ['name', 'email', 'role', 'isEmailVerified', 'actions'];
   users: MatTableDataSource<UserResults>;
   dataSource = new MatTableDataSource<any>();
   accessToken: string = ''; // Set the access token here
@@ -43,7 +43,7 @@ export class UserListComponent implements OnInit {
   deleteUser(userId: string) {
     this.userService.deleteUser(localStorage.getItem('access_token'), userId).subscribe(
       () => {
-        window.location.reload();
+        window.location.reload(); 
       },
       (error) => {
         console.log(error)
