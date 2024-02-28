@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { User } from 'src/app/interfaces/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class UserFormComponent implements OnInit {
   constructor(private service: UserService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
   
   ngOnInit(): void {
-    this.initializeForm();
+    this.initializeForm(); //Setting for population
     this.route.params.subscribe(params => {
       if (params['id']){
       this.mode = 'modify';
@@ -26,8 +25,8 @@ export class UserFormComponent implements OnInit {
         console.log("ID:", userId)
         this.service.getUserById(localStorage.getItem('access_token'), userId).subscribe(user => {
           if (user) {
-            console.log(user)
-            this.userForm.patchValue(user); // Populate form with user data
+            /* Populate for with data */
+            this.userForm.patchValue(user); 
           }else {
             console.error('User not found');
           }
@@ -52,6 +51,7 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    /* Check if is an update or an addition */
     if (this.mode === "modify"){
       const id = this.userForm.value.id;
       const userData: any = {

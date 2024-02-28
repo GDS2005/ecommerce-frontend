@@ -1,27 +1,30 @@
-# MeanUsermanagerFrontend
+<h1>MEAN Stack Aplication</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.10.
+<p>A Angular project (version 15.2.10) that Create, Read, Update and Delete (CRUD) users from a external API REST. The project use Tailwind to CSS and Angular Material to show data.</p>
 
-## Development server
+<h2>Getting Started</h2>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<h3>Prerequisites</h3>
+<ul>
+    <li>Node 18.14</li>
+    <li>Angular 15</li>
+    <li>External - API REST</li>
+</ul>
 
-## Code scaffolding
+<h3>Installing</h3>
+<ol>
+<li>Clone the repository to your local machine:</li>
+<pre><code>git clone https://github.com/GDS2005/mean-usermanager-frontend.git</code></pre>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<li>Install project dependencies:</li>
+<pre><code>npm install</code></pre>
 
-## Build
+<h2>Development</h2>
+<p>While working on the project, ensure that the virtual environment is activated. You can run the Django development server using the following command:</p>
+<pre><code>ng serve</code></pre>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<h2>Contributing</h2>
+<p>Please read <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for details on our code of conduct, and the process for submitting pull requests to us.</p>
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<h2>License</h2>
+<p>This project is licensed under the Pharmatube License - see the <a href="LICENSE">LICENSE</a> file for details.</p>

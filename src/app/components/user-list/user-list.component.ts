@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/services/user.service';
-import { User, UserResults } from 'src/app/interfaces/user';
+import { UserResults } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'role', 'isEmailVerified', 'actions'];
   users: MatTableDataSource<UserResults>;
   dataSource = new MatTableDataSource<any>();
-  accessToken: string = ''; // Set the access token here
+  accessToken: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
