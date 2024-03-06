@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-user-form',
@@ -23,7 +23,7 @@ export class UserFormComponent implements OnInit {
       const userId = params['id'];
       if (userId) {
         console.log("ID:", userId)
-        this.service.getUserById(localStorage.getItem('access_token'), userId).subscribe(user => {
+        this.service.getUserById(userId).subscribe(user => {
           if (user) {
             /* Populate for with data */
             this.userForm.patchValue(user); 
@@ -59,7 +59,7 @@ export class UserFormComponent implements OnInit {
       email: this.userForm.value.email,
       password: this.userForm.value.password
       };
-      this.service.updateUser(localStorage.getItem('access_token'),id , userData)
+      this.service.updateUser(id , userData)
       .subscribe(response => {
           console.log('User updated successfully:', response);
         }, error => {
@@ -73,14 +73,13 @@ export class UserFormComponent implements OnInit {
         password: this.userForm.value.password,
         role: this.userForm.value.role
       };
-      this.service.createUser(localStorage.getItem('access_token'), userData)
+      this.service.createUser(userData)
       .subscribe(response => {
           console.log('User created successfully:', response);
         }, error => {
           console.error('Error creating:', error);
         });
+        window.location.reload();
     }
-    this.router.navigate(['/user-list']);
   }
-    
 }
