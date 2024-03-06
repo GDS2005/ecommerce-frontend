@@ -21,9 +21,8 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
         this.authService.saveTokens(response.tokens);
-        localStorage.setItem("username", response.name);
         console.log('Login successful', response);
-        this.router.navigate(['/']);
+        this.router.navigate(['user-list']);
       },
       (error) => {
         console.error('Login error', error);

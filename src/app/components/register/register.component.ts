@@ -18,7 +18,7 @@ export class RegisterComponent {
   register(): void {
     this.service.register(this.name, this.email, this.password).subscribe(
       (response) => {
-        this.router.navigate(['']);
+        this.router.navigate(['login']);
       },
       (error) => {
         console.error('Login error', error);

@@ -10,9 +10,19 @@ import { ProductListComponent } from './components/product-list/product-list.com
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'user-list',
     //component:UserListComponent, 
     loadChildren: () => import('./components/user-list/user-list.module').then(m => m.UserListModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'product-list',
+    loadChildren: () => import('./components/product-list/product-list.module').then(m => m.ProductListModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'stock/:id',
+    loadChildren: () => import('./components/stock/stock.module').then(m => m.StockModule),
     canActivate: [AuthGuard]
   },
   {

@@ -38,8 +38,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, '');
-    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    localStorage.clear();
     var refresh_token = this.getRefreshToken()
     this.http.post<any>(`${this.apiUrl}/logout`, { refresh_token });
     window.location.reload();
