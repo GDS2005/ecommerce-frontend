@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Product, ProductResults } from 'src/app/interfaces/product';
 
 @Injectable({
@@ -12,51 +12,28 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProduct(accessToken: string | null): Observable<ProductResults> {
-    console.log("token:", accessToken)
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-
-    return this.http.get<ProductResults>(this.apiUrl, { headers });
+  getProducts(): Observable<Product[]> {
+    return this.http.get<ProductResults>(this.apiUrl).pipe(
+      map((response: ProductResults) => response.results)
+    );
   }
 
-  getProductById(accessToken: string | null, id: String): Observable<Product> {
-    
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-
+  getProductById(id: String): Observable<Product> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Product>(url, { headers });
+    return this.http.get<Product>(url);
   }
 
-  createProduct(accessToken: string | null, product: Product): Observable<Product> {
-    
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-
-    return this.http.post<Product>(this.apiUrl, product, { headers });
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, product);
   }
 
-  updateProduct(accessToken: string | null, id: String, product: Product): Observable<Product> {
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-    console.log(product)
+  updateProduct(id: String, product: Product): Observable<Product> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.patch<Product>(url, product, { headers });
+    return this.http.patch<Product>(url, product);
   }
 
-  deleteProduct(accessToken: string | null, id: String): Observable<void> {
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-
+  deleteProduct(id: String): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url, { headers });
+    return this.http.delete<void>(url);
   }
 }

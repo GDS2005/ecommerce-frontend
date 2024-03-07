@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserResults } from '../../interfaces/user';
@@ -16,7 +16,6 @@ export class UserService {
   }
 
   getUserById(id: String): Observable<User> {
-
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<User>(url);
   }

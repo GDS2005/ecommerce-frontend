@@ -1,30 +1,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
-import { Stock, StockResults } from 'src/app/interfaces/stock';
+import { Stock } from 'src/app/interfaces/stock';
 import { ProductService } from 'src/app/services/product/product.service';
 import { StockService } from 'src/app/services/stock/stock.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-product-card',
+  templateUrl: './product-card.component.html',
+  styleUrls: ['./product-card.component.css']
 })
-export class ProductListComponent {
+export class ProductCardComponent {
   products: Product[] = [];
   stock: Stock[] = [];
-  displayedColumns: string[] = ['name', 'description', 'price', 'image', 'stock', 'actions'];
 
-  constructor(private productService: ProductService, private stockService: StockService, private router: Router) { }
+  constructor(private productService: ProductService, private stockService: StockService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-    this.loadStock();
-  }
-
-  loadProducts() {
     this.productService.getProducts().subscribe(products => {
       this.products = products;
+      this.loadStock();
     });
   }
 
@@ -45,13 +40,20 @@ export class ProductListComponent {
     return productStock ? productStock.quantity : 0;
   }
 
-  editProduct(product: Product) {
-    this.router.navigate(['/edit-product', product.id]);
+  buyProduct(productId: string): void {
+    const productStock = this.stock.find(s => s.product === productId);
+    if (productStock && productStock.quantity > 0) {
+      this.stockService.updateStock(productId, productStock.quantity - 1).subscribe(() => {
+        // Update stock locally
+        productStock.quantity -= 1;
+      });
+    }
+    else{
+      console.log("There is no stock for this product")
+    }
+  }
+  detail(productId: string): void {
+    this.router.navigate(['/product-detail', productId]);
   }
 
-  deleteProduct(product: Product) {
-    this.productService.deleteProduct(product.id).subscribe(() => {
-      this.loadProducts(); // Reload products after deletion
-    });
-  }
 }

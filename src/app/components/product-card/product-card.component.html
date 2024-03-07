@@ -1,0 +1,63 @@
+<main>
+    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <ng-container *ngFor="let product of products">
+          <mat-card class="example-card bg-white shadow-md rounded-lg">
+            <div class="flex flex-col h-full">
+              <mat-card-header class="flex items-center h-16">
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title class="ml-2">{{ product.name }}</mat-card-title>
+                <mat-card-subtitle class="ml-auto">{{ product.price | currency }}</mat-card-subtitle>
+              </mat-card-header>
+              <div class="h-40 overflow-hidden m-10">
+                <img mat-card-image src="{{product.image}}" alt="Product Photo" class="object-center w-full h-full max-width: 100px; max-height: 100px;">
+              </div>
+              <mat-card-content class="h-20">
+                <p class="text-sm">
+                  {{ product.description }}
+                </p>
+              
+              </mat-card-content>
+              <mat-card-content>
+                <p>Stock: {{ getStockQuantity(product.id) }}</p>
+              </mat-card-content>
+              <mat-card-actions class="flex justify-end h-16">
+                <button mat-flat-button color="primary" class="mr-2" (click)="detail(product.id)">Detail</button>
+                <button mat-flat-button color="warn" (click)="buyProduct(product.id)">Buy</button>
+              </mat-card-actions>
+            </div>
+          </mat-card>
+          <!-- Modal -->
+        </ng-container>
+      </div>
+    </div>
+</main>
+  
+<!--
+<div class="bg-white">
+    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+  
+      <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div class="group relative">
+          <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+          </div>
+          <div class="mt-4 flex justify-between">
+            <div>
+              <h3 class="text-sm text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  Basic Tee
+                </a>
+              </h3>
+              <p class="mt-1 text-sm text-gray-500">Black</p>
+            </div>
+            <p class="text-sm font-medium text-gray-900">$35</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+-->
