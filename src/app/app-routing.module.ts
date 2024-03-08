@@ -6,7 +6,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { AuthGuard } from './guard/auth.guard';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ErrorComponent } from './components/error/error.component';
-import { HomeComponent } from './components/home/home.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 
@@ -59,12 +58,7 @@ const routes: Routes = [
   {
     path: 'login',
     component:LoginComponent
-  }, 
-  {
-    path: 'home',
-    component:HomeComponent,
-    canActivate: [AuthGuard]
-  }, 
+  },
   {
     path: 'register',
     component:RegisterComponent
@@ -75,7 +69,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'product-card'
   },
 ];
 

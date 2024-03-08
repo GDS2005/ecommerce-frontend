@@ -16,11 +16,17 @@ export class StockService {
     return this.http.get<StockResults>(this.apiUrl);
   }
 
-  createStock(request: Stock): Observable<Stock> {
-    return this.http.post<Stock>(this.apiUrl, request);
+  createStock(stock: Stock): Observable<Stock> {
+    console.log("Stock service:")
+    console.log(stock)
+    return this.http.post<Stock>(this.apiUrl, stock);
   }
 
-  updateStock(product: string, quantity: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${product}`, { quantity });
+  updateStock(product: string, quantity: number): Observable<Stock> {
+    console.log("Stock service:")
+    console.log("Product:", product)
+    console.log("Quantity:", quantity)
+    const url = `${this.apiUrl}/${product}`;
+    return this.http.patch<Stock>(url, { quantity });
   }
 }

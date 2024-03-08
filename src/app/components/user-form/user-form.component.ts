@@ -79,7 +79,7 @@ export class UserFormComponent implements OnInit {
         }, error => {
           console.error('Error creating:', error);
         });
-        window.location.reload();
     }
+    window.location.reload();
   }
 }

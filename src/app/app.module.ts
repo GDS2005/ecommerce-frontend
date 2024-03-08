@@ -14,7 +14,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { HomeComponent } from './components/home/home.component';
+//import { HomeComponent } from './components/home/home.component';
 //import { UserListComponent } from './components/user-list/user-list.component';
 //import { ProductListComponent } from './components/product-list/product-list.component';
 //import { ProductCardComponent } from './components/product-card/product-card.component';
@@ -29,8 +29,8 @@ import { HomeComponent } from './components/home/home.component';
     ErrorComponent,
     UserFormComponent,
     ProductFormComponent,
-    ProductDetailComponent,
-    HomeComponent
+    ProductDetailComponent
+    //HomeComponent
     //ProductCardComponent,
     //UserListComponent,
     //StockComponent,

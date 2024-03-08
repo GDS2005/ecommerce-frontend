@@ -6,6 +6,7 @@ import { ProductCardComponent } from './product-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [ProductCardComponent],
@@ -14,7 +15,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ProductCardRoutingModule,
     MatCardModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ]
 })
 export class ProductCardModule { }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { Stock } from 'src/app/interfaces/stock';
@@ -11,10 +12,11 @@ import { StockService } from 'src/app/services/stock/stock.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
+  @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   products: Product[] = [];
   stock: Stock[] = [];
 
-  constructor(private productService: ProductService, private stockService: StockService, private router: Router) {}
+  constructor(private productService: ProductService, private stockService: StockService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(products => {
@@ -51,9 +53,22 @@ export class ProductCardComponent {
     else{
       console.log("There is no stock for this product")
     }
+    this.closeDialog();
   }
   detail(productId: string): void {
     this.router.navigate(['/product-detail', productId]);
   }
+
+  openDialog(product: Product): void {
+    this.dialog.open(this.detailDialogTemplate, {
+        width: '400px',
+        data: product
+    });
+    
+}
+
+closeDialog(): void {
+    this.dialog.closeAll();
+}
 
 }

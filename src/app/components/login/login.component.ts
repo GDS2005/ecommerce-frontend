@@ -24,7 +24,7 @@ export class LoginComponent {
         localStorage.setItem('user_id', response.user.id);
         this.authService.saveTokens(response.tokens);
         console.log('Login successful', response);
-        this.router.navigate(['user-list']);
+        this.router.navigate(['product-card']);
       },
       (error) => {
         console.error('Login error', error);

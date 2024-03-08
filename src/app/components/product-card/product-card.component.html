@@ -23,12 +23,23 @@
               </mat-card-content>
               <mat-card-actions class="flex justify-end h-16">
                 <button mat-flat-button color="primary" class="mr-2" (click)="detail(product.id)">Detail</button>
-                <button mat-flat-button color="warn" (click)="buyProduct(product.id)">Buy</button>
+                <button mat-flat-button color="warn" (click)="openDialog(product)">Buy</button>
               </mat-card-actions>
             </div>
           </mat-card>
-          <!-- Modal -->
+          
         </ng-container>
+        <!-- Modal -->
+        <ng-template #detailDialogTemplate let-data>
+          <h2 mat-dialog-title>Atention</h2>
+          <mat-dialog-content>
+              <p> Are you sure you want to buy this item: {{data.id}} </p>
+          </mat-dialog-content>
+          <mat-dialog-actions align="end">
+              <button mat-flat-button color="warn" (click)="buyProduct(data.id)">Yes</button>
+              <button mat-button (click)="closeDialog()">Close</button>
+          </mat-dialog-actions>
+        </ng-template>
       </div>
     </div>
 </main>
