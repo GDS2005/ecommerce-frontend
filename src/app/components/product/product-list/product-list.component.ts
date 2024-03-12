@@ -30,9 +30,7 @@ export class ProductListComponent {
 
   loadStock(): void {
     this.stockService.getStocks().subscribe(response => {
-      // Check if the response has the 'results' key containing an array of stock items
       if (response.results && Array.isArray(response.results)) {
-        // Extract the stock data from the 'results' array
         this.stock = response.results;
       } else {
         console.error('Unexpected stock data format:', response);
@@ -46,7 +44,7 @@ export class ProductListComponent {
   }
 
   editProduct(product: Product) {
-    this.router.navigate(['/edit-product', product.id]);
+    this.router.navigate(['/product/modify', product.id]);
   }
 
   deleteProduct(product: Product) {

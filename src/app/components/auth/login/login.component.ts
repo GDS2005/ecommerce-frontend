@@ -20,11 +20,8 @@ export class LoginComponent {
   login(): void {
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
-        /* ¿It's a good practice? */
-        localStorage.setItem('user_id', response.user.id);
         this.authService.saveTokens(response.tokens);
-        console.log('Login successful', response);
-        this.router.navigate(['product-card']);
+        this.router.navigate(['product']);
       },
       (error) => {
         console.error('Login error', error);

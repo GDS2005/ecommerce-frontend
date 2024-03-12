@@ -80,6 +80,6 @@ export class UserFormComponent implements OnInit {
           console.error('Error creating:', error);
         });
     }
-    window.location.reload();
+    this.router.navigate(['user/list']);
   }
 }

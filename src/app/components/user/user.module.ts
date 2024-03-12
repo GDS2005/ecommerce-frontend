@@ -1,27 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProductListRoutingModule } from './product-list-routing.module';
-import { ProductListComponent } from './product-list.component';
+import { UserRoutingModule } from './user-routing.module';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserFormComponent } from './user-form/user-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+
 
 @NgModule({
-  declarations: [ProductListComponent],
+  declarations: [UserComponent, UserListComponent, UserFormComponent],
   imports: [
     CommonModule,
-    ProductListRoutingModule,
+    UserRoutingModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatFormFieldModule,
+    ReactiveFormsModule,
     FormsModule
   ]
 })
-export class ProductListModule { }
+export class UserModule { }

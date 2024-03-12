@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Product, ProductCreate } from 'src/app/interfaces/product';
+import { Stock } from 'src/app/interfaces/stock';
 import { ProductService } from 'src/app/services/product/product.service';
 import { StockService } from 'src/app/services/stock/stock.service';
 
@@ -30,10 +32,10 @@ export class ProductFormComponent implements OnInit {
       const productId = params['id'];
       if (productId) {
         console.log("ID:", productId)
-        this.productService.getProductById(productId).subscribe(user => {
-          if (user) {
+        this.productService.getProductById(productId).subscribe(product => {
+          if (product) {
             /* Populate for with data */
-            this.productForm.patchValue(user); 
+            this.productForm.patchValue(product); 
           }else {
             console.error('Product not found');
           }
@@ -60,71 +62,38 @@ export class ProductFormComponent implements OnInit {
     /* Check if it's an update or an addition */
     if (this.mode === "modify"){
       this.route.params.subscribe(params => {
-
         const id = params['id'];
-        const productData: any = {
+        const productData: ProductCreate = {
           name: this.productForm.value.name,
           description: this.productForm.value.description,
           image: this.productForm.value.image,
           price: this.productForm.value.price,
         };
-
-        /* Update product */
         this.productService.updateProduct(id, productData)
           .subscribe(response => {
-
-            const stockData: any = {
-              product: response.id,
-              quantity: this.productForm.value.stock,
-            }
-
-            /* If product don't have stock, create one*/
+            
+            this.stockService.updateStock(id, this.productForm.value.stock).subscribe(response => {
+    
+            })
             console.log('Product updated successfully:', response);
-            this.stockService.createStock(stockData).subscribe(response => { 
-              console.log('Product updated successfully:', response);
-            }, error =>{
-              /* If product have stock, update*/
-              console.error('Error creating stock', error);
-              this.stockService.updateStock(response.id, this.productForm.value.stock).subscribe(response => { 
-                console.log('Product updated successfully:', response);
-              }, error =>{
-                console.error('Error updating stock', error);
-              });
-            });
           }, error => {
             console.error('Error updating product:', error);
           });
       });
     }
     else{
-
-      const productData: any = {
+      const productData: ProductCreate = {
         name: this.productForm.value.name,
         description: this.productForm.value.description,
         image: this.productForm.value.image,
-        user: localStorage.getItem('user_id'),
         price: this.productForm.value.price,
       };
-
       this.productService.createProduct(productData)
       .subscribe(response => {
-
-          const stockData: any = {
-            product: response.id,
-            quantity: this.productForm.value.stock,
-          }
-
-          console.log('Product created successfully:', response);
-          console.log(stockData);
-          this.stockService.createStock(stockData).subscribe(response => { 
-            console.log('Product updated successfully:', response);
-          }, error =>{
-            console.error('Error creating stock', error);
-          });
         }, error => {
           console.error('Error creating:', error);
         });
     }
-    window.location.reload();
+    this.router.navigate(['product/list']);
   }
 }

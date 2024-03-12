@@ -33,7 +33,7 @@
         <ng-template #detailDialogTemplate let-data>
           <h2 mat-dialog-title>Atention</h2>
           <mat-dialog-content>
-              <p> Are you sure you want to buy this item: {{data.id}} </p>
+              <p> Are you sure you want to buy this item: <strong> {{data.name}} </strong> </p>
           </mat-dialog-content>
           <mat-dialog-actions align="end">
               <button mat-flat-button color="warn" (click)="buyProduct(data.id)">Yes</button>
