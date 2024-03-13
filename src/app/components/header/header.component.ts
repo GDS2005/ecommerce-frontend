@@ -13,23 +13,6 @@ export class HeaderComponent implements OnInit {
   constructor(private auth: AuthService){}
 
   ngOnInit(): void {
-    // Get the 'Add' dropdown element
-    const addDropdown = document.getElementById('addDropdown');
-    // Get the 'Add' link element
-    const addLink = document.querySelector('.add-link');
-
-    // Check if addLink is not null before adding event listener
-    addLink?.addEventListener('click', function(event) {
-      event.preventDefault();
-      addDropdown?.classList.toggle('hidden');
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-      if (!addDropdown?.contains(event.target as Node) && !addLink?.contains(event.target as Node)) {
-        addDropdown?.classList.add('hidden');
-      }
-    });
   }
 
   isLoggedIn(): boolean {

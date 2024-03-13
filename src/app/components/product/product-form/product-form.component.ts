@@ -70,11 +70,8 @@ export class ProductFormComponent implements OnInit {
           price: this.productForm.value.price,
         };
         this.productService.updateProduct(id, productData)
-          .subscribe(response => {
-            
-            this.stockService.updateStock(id, this.productForm.value.stock).subscribe(response => {
-    
-            })
+          .subscribe(response => {   
+            //this.stockService.updateStock(id, this.productForm.value.stock).subscribe(response => {})
             console.log('Product updated successfully:', response);
           }, error => {
             console.error('Error updating product:', error);
@@ -94,6 +91,6 @@ export class ProductFormComponent implements OnInit {
           console.error('Error creating:', error);
         });
     }
-    this.router.navigate(['product/list']);
+    window.location.reload();
   }
 }
