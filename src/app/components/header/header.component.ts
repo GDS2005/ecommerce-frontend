@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
+  userRole: string | undefined;
 
   constructor(private auth: AuthService){}
 
@@ -17,6 +18,10 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.auth.isLoggedIn();
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'admin';
   }
 
   logout(){

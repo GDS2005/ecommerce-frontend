@@ -21,6 +21,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
         this.authService.saveTokens(response.tokens);
+        localStorage.setItem('role', response.user.role);
         this.router.navigate(['product']);
       },
       (error) => {
