@@ -1,6 +1,7 @@
 <header class="bg-white shadow">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">List of Products</h1>
+        <a mat-flat-button color="primary" routerLink="/product/create" routerLinkActive="active" ariaCurrentWhenActive="page">New product</a>
     </div>
 </header>
   <main>
@@ -42,10 +43,10 @@
             <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
             <mat-cell *matCellDef="let product">
-                <button mat-icon-button color="primary" (click)="editProduct(product)">
+                <button mat-icon-button color="primary" (click)="modifyProduct(product.id)">
                 <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="deleteProduct(product)">
+                <button mat-icon-button color="warn" (click)="openDialog(product)">
                 <mat-icon>delete</mat-icon>
                 </button>
             </mat-cell>
@@ -55,4 +56,16 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
     </div>
+    <!-- Modal -->
+    <ng-template #detailDialogTemplate let-data>
+        <h2 mat-dialog-title>Atention</h2>
+        <mat-dialog-content>
+            <p> Are you sure you want to delete this item: <strong> {{data.name}} </strong> </p>
+            <p> This will delete the current stock </p>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-flat-button color="warn" (click)="deleteProduct(data.id)">Yes</button>
+            <button mat-button (click)="closeDialog()">Cancel</button>
+        </mat-dialog-actions>
+    </ng-template>
 </main>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, ProductCreate } from 'src/app/interfaces/product';
 import { Stock } from 'src/app/interfaces/stock';
@@ -12,6 +13,7 @@ import { StockService } from 'src/app/services/stock/stock.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   mode!: 'add' | 'modify';
   productForm!: FormGroup;
   id!: String;
@@ -21,7 +23,8 @@ export class ProductFormComponent implements OnInit {
     private stockService: StockService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
   
   ngOnInit(): void {
@@ -92,5 +95,15 @@ export class ProductFormComponent implements OnInit {
         });
     }
     window.location.reload();
+  }
+
+  openDialog(): void {
+    this.dialog.open(this.detailDialogTemplate, {
+        width: '400px',
+    });
+  }
+
+  closeDialog(): void {
+    this.dialog.closeAll();
   }
 }

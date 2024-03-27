@@ -20,7 +20,7 @@ const routes: Routes = [
     component: ProductFormComponent
   },
   {
-    path: 'detail',
+    path: 'detail/:id',
     component: ProductDetailComponent
   },
   {

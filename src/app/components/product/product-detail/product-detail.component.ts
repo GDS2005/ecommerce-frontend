@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { Stock } from 'src/app/interfaces/stock';
@@ -11,10 +12,11 @@ import { StockService } from 'src/app/services/stock/stock.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent {
+  @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   product!: Product;
   stock: Stock[] = [];
 
-  constructor(private productService: ProductService, private stockService: StockService ,private route: ActivatedRoute) {}
+  constructor(private productService: ProductService, private stockService: StockService, private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getProduct();

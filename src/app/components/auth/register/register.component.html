@@ -36,12 +36,23 @@
       </div>
 
       <div>
-        <button type="submit" (click)="register()" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
+        <button type="submit" (click)="openDialog()" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
       </div>
       <div *ngIf="errorMessage" class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
         <p class="font-bold">¡Ops!</p>
         <p>Some of the data is incorrect.</p>
       </div>
     </form>
+
+    <!-- Modal -->
+    <ng-template #detailDialogTemplate let-data>
+      <h2 mat-dialog-title>¡Register succesfull!</h2>
+      <mat-dialog-content>
+          <p>Please, check your email to validate your accout.</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+          <button mat-flat-button (click)="register()">Ok</button>
+      </mat-dialog-actions>
+    </ng-template>
   </div>
 </div>

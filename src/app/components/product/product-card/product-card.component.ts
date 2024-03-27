@@ -56,7 +56,7 @@ export class ProductCardComponent {
     this.closeDialog();
   }
   detail(productId: string): void {
-    this.router.navigate(['/product-detail', productId]);
+    this.router.navigate(['/product/detail', productId]);
   }
 
   openDialog(product: Product): void {
@@ -64,11 +64,9 @@ export class ProductCardComponent {
         width: '400px',
         data: product
     });
-    
-}
+  }
 
-closeDialog(): void {
-    this.dialog.closeAll();
-}
-
+  closeDialog(): void {
+      this.dialog.closeAll();
+  }
 }

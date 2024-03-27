@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { Stock, StockResults } from 'src/app/interfaces/stock';
@@ -11,11 +12,12 @@ import { StockService } from 'src/app/services/stock/stock.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
+  @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   products: Product[] = [];
   stock: Stock[] = [];
   displayedColumns: string[] = ['name', 'description', 'price', 'image', 'stock', 'actions'];
 
-  constructor(private productService: ProductService, private stockService: StockService, private router: Router) { }
+  constructor(private productService: ProductService, private stockService: StockService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -43,13 +45,25 @@ export class ProductListComponent {
     return productStock ? productStock.quantity : 0;
   }
 
-  editProduct(product: Product) {
-    this.router.navigate(['/product/modify', product.id]);
+  modifyProduct(productId: string) {
+    this.router.navigate(['/product/modify', productId]);
   }
 
-  deleteProduct(product: Product) {
-    this.productService.deleteProduct(product.id).subscribe(() => {
+  deleteProduct(productId: string) {
+    this.productService.deleteProduct(productId).subscribe(() => {
+      this.closeDialog();
       this.loadProducts(); // Reload products after deletion
     });
+  }
+
+  openDialog(product: Product): void {
+    this.dialog.open(this.detailDialogTemplate, {
+        width: '400px',
+        data: product
+    });
+  }
+
+  closeDialog(): void {
+    this.dialog.closeAll();
   }
 }
