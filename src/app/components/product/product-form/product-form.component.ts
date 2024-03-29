@@ -106,7 +106,7 @@ export class ProductFormComponent implements OnInit {
   }
   
   goBack(): void {
-    this.closeDialog();
+    this.dialog.closeAll();
     this.router.navigate(['product/list']);
   }
 }

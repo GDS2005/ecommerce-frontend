@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -9,11 +10,18 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
+  @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   mode!: 'add' | 'modify';
   userForm!: FormGroup;
   id!: String;
 
-  constructor(private service: UserService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
+  constructor(
+    private service: UserService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private fb: FormBuilder, 
+    private dialog: MatDialog
+    ) { }
   
   ngOnInit(): void {
     this.initializeForm(); //Setting for population
@@ -61,7 +69,7 @@ export class UserFormComponent implements OnInit {
       };
       this.service.updateUser(id , userData)
       .subscribe(response => {
-          console.log('User updated successfully:', response);
+          this.openDialog("update");
         }, error => {
           console.error('Error updating user:', error);
         });
@@ -75,11 +83,27 @@ export class UserFormComponent implements OnInit {
       };
       this.service.createUser(userData)
       .subscribe(response => {
-          console.log('User created successfully:', response);
+          this.openDialog("create");
         }, error => {
           console.error('Error creating:', error);
         });
     }
+  }
+
+  openDialog(data: string): void {
+    this.dialog.open(this.detailDialogTemplate, {
+        width: '400px',
+        data: data
+    });
+  }
+
+  closeDialog(): void {
+    this.dialog.closeAll();
     window.location.reload();
+  }
+  
+  goBack(): void {
+    this.dialog.closeAll();
+    this.router.navigate(['user/list']);
   }
 }

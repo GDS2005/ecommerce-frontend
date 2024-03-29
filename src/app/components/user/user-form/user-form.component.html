@@ -43,5 +43,16 @@
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
       </div>
     </form>
+    <!-- Modal -->
+    <ng-template #detailDialogTemplate let-data>
+      <h2 mat-dialog-title><strong>¡Product {{data}}d!</strong></h2>
+      <mat-dialog-content>
+          <p>¿Do you want to {{data}} anything else?</p>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+          <button mat-flat-button color="primary" (click)="closeDialog()">Yes</button>
+          <button mat-button (click)="goBack()">No</button>
+      </mat-dialog-actions>
+    </ng-template>
   </div>
 </div>
