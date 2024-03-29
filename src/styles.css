@@ -8,3 +8,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 table {
     table-layout: fixed !important;
 }
+
+.sticky-column {
+    position: sticky;
+    left: 0;
+    z-index: 1; /* Ensure it's above other cells */
+    background-color: #fff; /* Make it look like part of the header */
+}
+
+.sticky-table {
+    width: max-content; /* Allow horizontal scrolling */
+}

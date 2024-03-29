@@ -15,6 +15,10 @@ export class ProductCardComponent {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   products: Product[] = [];
   stock: Stock[] = [];
+  quantity!: number;
+  errorMessage!: string;
+  showAlert = false;
+  message = '';
 
   constructor(private productService: ProductService, private stockService: StockService, private router: Router, private dialog: MatDialog) {}
 
@@ -27,9 +31,7 @@ export class ProductCardComponent {
 
   loadStock(): void {
     this.stockService.getStocks().subscribe(response => {
-      // Check if the response has the 'results' key containing an array of stock items
       if (response.results && Array.isArray(response.results)) {
-        // Extract the stock data from the 'results' array
         this.stock = response.results;
       } else {
         console.error('Unexpected stock data format:', response);
@@ -42,23 +44,22 @@ export class ProductCardComponent {
     return productStock ? productStock.quantity : 0;
   }
 
-  buyProduct(productId: string): void {
+  buyProduct(productId: string, quantity: number): void {
     const productStock = this.stock.find(s => s.product === productId);
-    if (productStock && productStock.quantity > 0) {
-      this.stockService.updateStock(productId, productStock.quantity - 1).subscribe(() => {
-        // Update stock locally
-        productStock.quantity -= 1;
-      });
+    if (productStock && productStock.quantity >= quantity) {
+      const updatedQuantity = productStock.quantity - quantity;
+      if (updatedQuantity >= 0) {
+        this.stockService.updateStock(productId, updatedQuantity).subscribe(() => {
+          productStock.quantity = updatedQuantity;
+          this.closeDialog();
+        });
+      } else {
+        this.errorMessage = "Not enough stock available for this product.";
+      }
+    } else {
+      this.errorMessage = "There is not enough stock for this product.";
     }
-    else{
-      console.log("There is no stock for this product")
-    }
-    this.closeDialog();
   }
-  detail(productId: string): void {
-    this.router.navigate(['/product/detail', productId]);
-  }
-
   openDialog(product: Product): void {
     this.dialog.open(this.detailDialogTemplate, {
         width: '400px',
@@ -68,5 +69,10 @@ export class ProductCardComponent {
 
   closeDialog(): void {
       this.dialog.closeAll();
+      this.errorMessage = '';
+  }
+
+  detail(productId: string): void {
+    this.router.navigate(['/product/detail', productId]);
   }
 }

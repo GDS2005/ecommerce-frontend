@@ -1,6 +1,6 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { Stock } from 'src/app/interfaces/stock';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -15,8 +15,10 @@ export class ProductDetailComponent {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   product!: Product;
   stock: Stock[] = [];
+  errorMessage!: string;
+  quantity!: number;
 
-  constructor(private productService: ProductService, private stockService: StockService, private route: ActivatedRoute, private dialog: MatDialog) {}
+  constructor(private productService: ProductService, private stockService: StockService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getProduct();
@@ -46,16 +48,35 @@ export class ProductDetailComponent {
     return productStock ? productStock.quantity : 0;
   }
 
-  buyProduct(productId: string): void {
+  buyProduct(productId: string, quantity: number): void {
     const productStock = this.stock.find(s => s.product === productId);
-    if (productStock && productStock.quantity > 0) {
-      this.stockService.updateStock(productId, productStock.quantity - 1).subscribe(() => {
-        // Update stock locally
-        productStock.quantity -= 1;
-      });
+    if (productStock && productStock.quantity >= quantity) {
+      const updatedQuantity = productStock.quantity - quantity;
+      if (updatedQuantity >= 0) {
+        this.stockService.updateStock(productId, updatedQuantity).subscribe(() => {
+          productStock.quantity = updatedQuantity;
+          this.closeDialog();
+        });
+      } else {
+        this.errorMessage = "Not enough stock available for this product.";
+      }
+    } else {
+      this.errorMessage = "There is not enough stock for this product.";
     }
-    else{
-      console.log("There is no stock for this product")
-    }
+  }
+  openDialog(product: Product): void {
+    this.dialog.open(this.detailDialogTemplate, {
+        width: '400px',
+        data: product
+    });
+  }
+
+  closeDialog(): void {
+      this.dialog.closeAll();
+      this.errorMessage = '';
+  }
+
+  detail(productId: string): void {
+    this.router.navigate(['/product/detail', productId]);
   }
 }

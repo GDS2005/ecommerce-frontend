@@ -25,7 +25,6 @@ export class LoginComponent {
         this.router.navigate(['product']);
       },
       (error) => {
-        console.error('Login error', error);
         this.errorMessage = 'Invalid email or password';
       }
     );

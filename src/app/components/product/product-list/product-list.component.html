@@ -5,53 +5,52 @@
     </div>
 </header>
   <main>
-    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-        <!-- product-table.component.html -->
-        <mat-table [dataSource]="products" class="mat-elevation-z8">
-
+    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8" style="overflow-x: auto;">
+        <mat-table [dataSource]="products" class="mat-elevation-z8 sticky-table">
+    
             <!-- Name Column -->
             <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let product"><strong>{{ product.name }}</strong></mat-cell>
+                <mat-header-cell *matHeaderCellDef class="sticky-column">Name</mat-header-cell>
+                <mat-cell *matCellDef="let product" class="sticky-column"><strong>{{ product.name }}</strong></mat-cell>
             </ng-container>
-        
+    
             <!-- Description Column -->
             <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let product">{{ product.description }}</mat-cell>
+                <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+                <mat-cell *matCellDef="let product" >{{ product.description }}</mat-cell>
             </ng-container>
-        
+    
             <!-- Price Column -->
             <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
-            <mat-cell *matCellDef="let product">${{ product.price }}</mat-cell>
+                <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+                <mat-cell *matCellDef="let product">${{ product.price }}</mat-cell>
             </ng-container>
-
+    
             <!-- Image Column -->
             <ng-container matColumnDef="image">
-            <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
-            <mat-cell *matCellDef="let product"><img [src]="product.image" alt="Product Image" style="max-width: 100px; max-height: 100px;"></mat-cell>
+                <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+                <mat-cell *matCellDef="let product"><img [src]="product.image" alt="Product Image" style="max-width: 100px; max-height: 100px;"></mat-cell>
             </ng-container>
-
+    
             <!-- Stock Column -->
             <ng-container matColumnDef="stock">
-            <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
-            <mat-cell *matCellDef="let product">{{ getStockQuantity(product.id) }}</mat-cell>
+                <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
+                <mat-cell *matCellDef="let product">{{ getStockQuantity(product.id) }}</mat-cell>
             </ng-container>
-        
+    
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-            <mat-cell *matCellDef="let product">
-                <button mat-icon-button color="primary" (click)="modifyProduct(product.id)">
-                <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="openDialog(product)">
-                <mat-icon>delete</mat-icon>
-                </button>
-            </mat-cell>
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let product" >
+                    <button mat-icon-button color="primary" (click)="modifyProduct(product.id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="openDialog(product)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
             </ng-container>
-        
+    
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>

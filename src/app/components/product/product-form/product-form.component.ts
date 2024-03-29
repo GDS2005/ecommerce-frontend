@@ -2,10 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product, ProductCreate } from 'src/app/interfaces/product';
-import { Stock } from 'src/app/interfaces/stock';
+import { ProductCreate } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product/product.service';
-import { StockService } from 'src/app/services/stock/stock.service';
 
 @Component({
   selector: 'app-product-form',
@@ -20,7 +18,6 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private stockService: StockService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
@@ -74,8 +71,7 @@ export class ProductFormComponent implements OnInit {
         };
         this.productService.updateProduct(id, productData)
           .subscribe(response => {   
-            //this.stockService.updateStock(id, this.productForm.value.stock).subscribe(response => {})
-            console.log('Product updated successfully:', response);
+            this.openDialog("update");
           }, error => {
             console.error('Error updating product:', error);
           });
@@ -90,20 +86,27 @@ export class ProductFormComponent implements OnInit {
       };
       this.productService.createProduct(productData)
       .subscribe(response => {
+        this.openDialog("create");
         }, error => {
-          console.error('Error creating:', error);
+          console.error('Error creating product:', error);
         });
     }
-    window.location.reload();
   }
 
-  openDialog(): void {
+  openDialog(data: string): void {
     this.dialog.open(this.detailDialogTemplate, {
         width: '400px',
+        data: data
     });
   }
 
   closeDialog(): void {
     this.dialog.closeAll();
+    window.location.reload();
+  }
+  
+  goBack(): void {
+    this.closeDialog();
+    this.router.navigate(['product/list']);
   }
 }

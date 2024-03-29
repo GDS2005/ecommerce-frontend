@@ -18,17 +18,48 @@ export class RegisterComponent {
   constructor(private service: AuthService, private router: Router, private dialog: MatDialog) { }
 
   register(): void {
+    if (!this.validateEmail()) {
+      this.errorMessage = 'Invalid email format';
+      return;
+    }
+
+    if (!this.validatePassword()) {
+      this.errorMessage = 'Password must contain at least 8 characteres and 1 number';
+      return;
+    }
+
     this.service.register(this.name, this.email, this.password).subscribe(
       (response) => {
-        this.router.navigate(['login']);
+        this.openDialog()
       },
       (error) => {
-        console.error('Login error', error);
-        this.errorMessage = 'Invalid email or password';
+        this.errorMessage = 'User or Email already taken';
       }
     );
-    this.closeDialog()
   }
+
+  validateEmail(): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(this.email);
+  }
+
+  validatePassword(): boolean {
+    const minLength = 8;
+    const letterRegex = /[a-zA-Z]/;
+    const numberRegex = /[0-9]/;
+  
+    return this.password.length >= minLength && letterRegex.test(this.password) && numberRegex.test(this.password);
+  }
+
+  /*
+  validatePassword(): boolean {
+    const letterRegex = /[a-zA-Z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const numberRegex = /[8-16]/;
+
+    return letterRegex.test(this.password) && uppercaseRegex.test(this.password) && numberRegex.test(this.password);
+  }
+  */
 
   openDialog(): void {
     this.dialog.open(this.detailDialogTemplate, {
@@ -38,5 +69,6 @@ export class RegisterComponent {
 
   closeDialog(): void {
     this.dialog.closeAll();
+    this.router.navigate(['login']);
   }
 }
