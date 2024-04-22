@@ -14,7 +14,10 @@ export class ProductFormComponent implements OnInit {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   mode!: 'add' | 'modify';
   productForm!: FormGroup;
+  errorMessage!: string;
   id!: String;
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private productService: ProductService,
@@ -54,42 +57,58 @@ export class ProductFormComponent implements OnInit {
       description: ['', [Validators.required, Validators.email]],
       image: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      stock: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
-    /* Check if it's an update or an addition */
+    if (!this.selectedFile) {
+      this.errorMessage =  "No file selected";
+      return;
+    }
+
+    const productData: ProductCreate = {
+      name: this.productForm.value.name,
+      description: this.productForm.value.description,
+      image: this.selectedFile.name,
+      price: this.productForm.value.price,
+    };
+
     if (this.mode === "modify"){
       this.route.params.subscribe(params => {
         const id = params['id'];
-        const productData: ProductCreate = {
-          name: this.productForm.value.name,
-          description: this.productForm.value.description,
-          image: this.productForm.value.image,
-          price: this.productForm.value.price,
-        };
+        
         this.productService.updateProduct(id, productData)
           .subscribe(response => {   
             this.openDialog("update");
           }, error => {
-            console.error('Error updating product:', error);
+            this.errorMessage =  error;
           });
       });
     }
     else{
-      const productData: ProductCreate = {
-        name: this.productForm.value.name,
-        description: this.productForm.value.description,
-        image: this.productForm.value.image,
-        price: this.productForm.value.price,
-      };
       this.productService.createProduct(productData)
       .subscribe(response => {
         this.openDialog("create");
         }, error => {
-          console.error('Error creating product:', error);
+          this.errorMessage =  error;
         });
+    }
+    this.productService.uploadImage(this.selectedFile)?.subscribe()
+  }
+
+  onImagePicked(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      // Read the file as a data URL
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedFile = inputElement.files[0];
     }
   }
 

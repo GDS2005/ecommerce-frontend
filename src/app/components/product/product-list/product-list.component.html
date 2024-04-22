@@ -29,8 +29,12 @@
             <!-- Image Column -->
             <ng-container matColumnDef="image">
                 <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
-                <mat-cell *matCellDef="let product"><img [src]="product.image" alt="Product Image" style="max-width: 100px; max-height: 100px;"></mat-cell>
-            </ng-container>
+                <mat-cell *matCellDef="let product">
+                  <div class="image-container">
+                    <img [src]="'http://localhost:3000/v1/files/' + product.image" alt="Product Image">
+                  </div>
+                </mat-cell>
+              </ng-container>
     
             <!-- Stock Column -->
             <ng-container matColumnDef="stock">

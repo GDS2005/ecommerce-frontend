@@ -1,4 +1,4 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Product, ProductCreate, ProductResults } from 'src/app/interfaces/product';
@@ -35,5 +35,16 @@ export class ProductService {
   deleteProduct(id: String): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
+  }
+
+  uploadImage(file: File | null) {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return this.http.post('http://localhost:3000/v1/files/', formData);
   }
 }

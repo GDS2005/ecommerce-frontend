@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { UserFormComponent } from './components/user/user-form/user-form.component';
 import { AuthGuard } from './guard/auth.guard';
 import { ErrorComponent } from './components/error/error.component';
 import { NoAuthGuard } from './guard/no-auth.guard';
