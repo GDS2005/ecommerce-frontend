@@ -16,11 +16,6 @@ export class StockService {
     return this.http.get<StockResults>(this.apiUrl);
   }
 
-  /*
-  *createStock(stock: Stock): Observable<Stock> {
-  *  return this.http.post<Stock>(this.apiUrl, stock);
-  *}
-  */
   updateStock(product: string, quantity: number): Observable<Stock> {
     const url = `${this.apiUrl}/${product}`;
     return this.http.patch<Stock>(url, { quantity });

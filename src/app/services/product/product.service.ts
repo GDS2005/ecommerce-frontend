@@ -36,15 +36,4 @@ export class ProductService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
-
-  uploadImage(file: File | null) {
-    if (!file) {
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    return this.http.post('http://localhost:3000/v1/files/', formData);
-  }
 }

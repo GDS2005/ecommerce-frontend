@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCreate } from 'src/app/interfaces/product';
+import { ImageService } from 'src/app/services/image/image.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private imageService: ImageService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
@@ -93,7 +95,7 @@ export class ProductFormComponent implements OnInit {
           this.errorMessage =  error;
         });
     }
-    this.productService.uploadImage(this.selectedFile)?.subscribe()
+    this.imageService.uploadImage(this.selectedFile)?.subscribe()
   }
 
   onImagePicked(event: any) {
