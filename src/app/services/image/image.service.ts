@@ -20,4 +20,16 @@ export class ImageService {
 
     return this.http.post(this.apiUrl, formData);
   }
+
+  /*getImage(name: string | null) {
+    if (!name) {
+      return;
+    } 
+
+    const options = {
+      params: { name } 
+    };
+
+    return this.http.get(this.apiUrl, options);
+  }*/
 }

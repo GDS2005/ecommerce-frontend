@@ -41,6 +41,7 @@ export class ProductFormComponent implements OnInit {
           if (product) {
             /* Populate for with data */
             this.productForm.patchValue(product); 
+            this.imagePreview = 'http://localhost:3000/v1/files/'+product.image;
           }else {
             console.error('Product not found');
           }
