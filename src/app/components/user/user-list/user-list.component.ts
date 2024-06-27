@@ -32,17 +32,6 @@ export class UserListComponent implements OnInit {
       this.dataSource.data = userData.results;
     });
   }
-
-  /*
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.users.filter = filterValue.trim().toLowerCase();
-
-    if (this.users.paginator) {
-      this.users.paginator.firstPage();
-    }
-  }
-  */
  
   modifyUser(userId: string) {
     this.router.navigate(['user/modify', userId]);

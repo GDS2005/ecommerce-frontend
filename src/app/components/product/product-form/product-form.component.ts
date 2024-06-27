@@ -41,7 +41,7 @@ export class ProductFormComponent implements OnInit {
           if (product) {
             /* Populate for with data */
             this.productForm.patchValue(product); 
-            this.imagePreview = 'http://localhost:3000/v1/files/'+product.image;
+            this.imagePreview = 'http://localhost:3002/v1/files/'+product.image;
           }else {
             console.error('Product not found');
           }
@@ -58,22 +58,25 @@ export class ProductFormComponent implements OnInit {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', [Validators.required, Validators.email]],
-      image: ['', [Validators.required]],
+      image: [''],
       price: ['', [Validators.required]],
+      stock: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
-    if (!this.selectedFile) {
-      this.errorMessage =  "No file selected";
-      return;
-    }
+    let imageUrl = this.productForm.value.image;
 
+  if (this.selectedFile) {
+    imageUrl = this.selectedFile.name;
+    this.imageService.uploadImage(this.selectedFile)?.subscribe();
+  }
     const productData: ProductCreate = {
       name: this.productForm.value.name,
       description: this.productForm.value.description,
-      image: this.selectedFile.name,
+      image: imageUrl,
       price: this.productForm.value.price,
+      stock: this.productForm.value.stock,
     };
 
     if (this.mode === "modify"){

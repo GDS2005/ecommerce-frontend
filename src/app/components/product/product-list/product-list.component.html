@@ -31,7 +31,7 @@
                 <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
                 <mat-cell *matCellDef="let product">
                   <div class="image-container">
-                    <img [src]="'http://localhost:3000/v1/files/' + product.image" alt="Product Image">
+                    <img [src]="'http://localhost:3002/v1/files/' + product.image" alt="Product Image">
                   </div>
                 </mat-cell>
               </ng-container>
@@ -39,14 +39,14 @@
             <!-- Stock Column -->
             <ng-container matColumnDef="stock">
                 <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
-                <mat-cell *matCellDef="let product">{{ getStockQuantity(product.id) }}</mat-cell>
+                <mat-cell *matCellDef="let product"> {{ product.stock }} </mat-cell>
             </ng-container>
     
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let product" >
-                    <button mat-icon-button color="primary" (click)="modifyProduct(product.id)">
+                    <button mat-icon-button color="primary" (click)="modifyProduct(product._id)">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="openDialog(product)">
@@ -67,7 +67,7 @@
             <p> This will delete the current stock </p>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <button mat-flat-button color="warn" (click)="deleteProduct(data.id)">Yes</button>
+            <button mat-flat-button color="warn" (click)="deleteProduct(data._id)">Yes</button>
             <button mat-button (click)="closeDialog()">Cancel</button>
         </mat-dialog-actions>
     </ng-template>

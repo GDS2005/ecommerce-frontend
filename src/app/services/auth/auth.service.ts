@@ -7,9 +7,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl = 'http://localhost:3000/v1/auth';
+  apiUrl = 'http://localhost:3001/v1';
   private readonly ACCESS_TOKEN_KEY = 'access_token';
-  private readonly REFRESH_TOKEN_KEY = 'refresh_token';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -23,15 +22,10 @@ export class AuthService {
 
   saveTokens(tokens: any): void {
     localStorage.setItem(this.ACCESS_TOKEN_KEY, tokens.access.token);
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, tokens.refresh.token);
   }
 
   getAccessToken(): string | null {
     return localStorage.getItem(this.ACCESS_TOKEN_KEY);
-  }
-
-  getRefreshToken(): string | null {
-    return localStorage.getItem(this.REFRESH_TOKEN_KEY);
   }
 
   isLoggedIn(): boolean {
@@ -40,8 +34,6 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
-    var refresh_token = this.getRefreshToken()
-    this.http.post<any>(`${this.apiUrl}/logout`, { refresh_token });
     this.router.navigate(['/login']);
   }
 }

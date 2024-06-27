@@ -45,6 +45,7 @@ export class UserFormComponent implements OnInit {
         this.mode = 'add';
       }
     });
+    console.log(this.mode);
   }
 
   initializeForm(): void {
@@ -59,22 +60,27 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    /* Check if is an update or an addition */
-    if (this.mode === "modify"){
-      const id = this.userForm.value.id;
-      const userData: any = {
+    const userData: any = {
       name: this.userForm.value.name,
       email: this.userForm.value.email,
-      password: this.userForm.value.password
-      };
-      this.service.updateUser(id , userData)
-      .subscribe(response => {
-          this.openDialog("update");
-        }, error => {
-          console.error('Error updating user:', error);
+      password: this.userForm.value.password,
+      role: this.userForm.value.role,
+    };
+
+    /* Check if is an update or an addition */
+    if (this.mode === "modify"){
+      this.route.params.subscribe(params => {
+        const userId = params['id'];
+        
+        this.service.updateUser(userId , userData).
+        subscribe(response => {
+            this.openDialog("Updated");
+          }, error => {
+            console.error('Error updating user:', error);
+          });
         });
       }
-    else{
+     else{
       const userData: any = {
         name: this.userForm.value.name,
         email: this.userForm.value.email,
@@ -106,4 +112,6 @@ export class UserFormComponent implements OnInit {
     this.dialog.closeAll();
     this.router.navigate(['user/list']);
   }
+
+  
 }

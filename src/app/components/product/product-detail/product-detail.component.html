@@ -1,7 +1,7 @@
 <section class="text-gray-700 body-font overflow-hidden bg-white">
     <div class="container px-5 py-24 mx-auto" *ngIf="product">
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
-        <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="http://localhost:3000/v1/files/{{product.image}}">
+        <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="http://localhost:3002/v1/files/{{product.image}}">
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <h2 class="text-sm title-font text-gray-500 tracking-widest">  </h2>
           <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{product.name}}</h1>
@@ -42,16 +42,6 @@
               </a>
             </span>
           </div>
-          <p class="leading-relaxed"> {{ product.description }}</p>
-          <p *ngIf="getStockQuantity(product.id) > 0">Stock: {{ getStockQuantity(product.id) }}</p>
-          <p *ngIf="getStockQuantity(product.id) === 0"><strong>Not in stock</strong></p>
-
-          <div class="flex">
-            <span class="title-font font-medium text-2xl text-gray-900">${{ product.price }}</span>
-            <button *ngIf="getStockQuantity(product.id) > 0" class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" (click)="openDialog(product)">Buy</button>
-            <button *ngIf="getStockQuantity(product.id) === 0" routerLink="/product" routerLinkActive="active" ariaCurrentWhenActive="page" class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Return</button>
-          </div>
-        </div>
 
         <!-- Modal -->
         <ng-template #detailDialogTemplate let-data>
@@ -66,11 +56,11 @@
             </div>
           </mat-dialog-content>
           <mat-dialog-actions align="end">
-              <button mat-flat-button color="warn" (click)="buyProduct(data.id, quantity)">Buy</button>
+              <button mat-flat-button color="warn" >Buy</button>
               <button mat-button (click)="closeDialog()">Close</button>
           </mat-dialog-actions>
         </ng-template>
       </div>
     </div>
-  </section>
+
 

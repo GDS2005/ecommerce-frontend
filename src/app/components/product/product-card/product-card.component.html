@@ -1,72 +1,72 @@
 <main>
-    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <ng-container *ngFor="let product of products">
-          <mat-card class="example-card bg-white shadow-md rounded-lg">
-            <div class="flex flex-col h-full">
-              <mat-card-header class="flex items-center h-16">
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title class="ml-2">{{ product.name }}</mat-card-title>
-                <mat-card-subtitle class="ml-auto">{{ product.price | currency }}</mat-card-subtitle>
-              </mat-card-header>
-              <div class="p-6">
-                <div class="image-container">
-                  <img mat-card-image src="http://localhost:3000/v1/files/{{product.image}}" alt="{{product.image}}" class="object-contain w-full h-full">
-                </div>
+  <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <ng-container *ngFor="let product of products">
+        <mat-card class="example-card bg-white shadow-md rounded-lg">
+          <div class="flex flex-col h-full">
+            <mat-card-header class="flex items-center h-16">
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title class="ml-2">{{ product.name }}</mat-card-title>
+              <mat-card-subtitle class="ml-auto">{{ product.price | currency }}</mat-card-subtitle>
+            </mat-card-header>
+            <div class="p-6">
+              <div class="image-container">
+                <img mat-card-image src="http://localhost:3002/v1/files/{{product.image}}" alt="{{product.image}}" class="object-contain w-full h-full">
               </div>
-              <mat-card-content class="h-20">
-                <p class="text-sm">
-                  {{ product.description }}
-                </p>
-              
-              </mat-card-content>
-              <mat-card-content>
-                <p *ngIf="getStockQuantity(product.id) > 0">Stock: {{ getStockQuantity(product.id) }}</p>
-                <p *ngIf="getStockQuantity(product.id) === 0"><strong>Not in stock</strong></p>
-              </mat-card-content>
-              <mat-card-actions class="flex justify-end h-16">
-                <button mat-flat-button color="primary" class="mr-2" (click)="detail(product.id)">Detail</button>
-                <button *ngIf="getStockQuantity(product.id) > 0" mat-flat-button color="warn" (click)="openDialog(product)">Buy</button>
-              </mat-card-actions>
             </div>
-          </mat-card>
-          
-        </ng-container>
-        <!-- Modal -->
-        <ng-template #detailDialogTemplate let-data>
-          <h2 mat-dialog-title>Add to the cart: {{data.name}}</h2>
+            <mat-card-content class="h-20">
+              <p class="text-sm">
+                {{ product.description }}
+              </p>
+            
+            </mat-card-content>
+            <mat-card-content>
+              <p *ngIf="product.stock > 0">Stock: {{ product.stock }}</p>
+              <p *ngIf="product.stock === 0"><strong>Not in stock</strong></p>
+            </mat-card-content>
+            <mat-card-actions class="flex justify-end h-16">
+              <button mat-flat-button color="primary" class="mr-2" (click)="detail(product._id)">Detail</button>
+              <button *ngIf="product.stock > 0" mat-flat-button color="warn" (click)="openDialog(product)">Buy</button>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+        
+      </ng-container>
+      <!-- Modal -->
+      <ng-template #detailDialogTemplate let-data>
+        <h2 mat-dialog-title>Add to the cart: {{data.name}}</h2>
+        <mat-dialog-content>
+          <p mat-dialog-content>¿How many products do you want?</p>
+          <mat-form-field>
+            <input matInput type="number" [(ngModel)]="quantity" name="quantityInput">
+          </mat-form-field>
           <mat-dialog-content>
-            <p mat-dialog-content>¿How many products do you want?</p>
-            <mat-form-field>
-              <input matInput type="number" [(ngModel)]="quantity" name="quantityInput">
-            </mat-form-field>
-            <mat-dialog-content>
-              <div *ngIf="quantity">Total: {{ data.price * quantity | currency }}</div>
-            </mat-dialog-content>
-            <!-- Error message -->
-            <div *ngIf="errorMessage" class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
-              <p class="font-bold">¡Ops!</p>
-              <p>{{ errorMessage }}</p>
-            </div>
+            <div *ngIf="quantity">Total: {{ data.price * quantity | currency }}</div>
           </mat-dialog-content>
+          <!-- Error message -->
+          <div *ngIf="errorMessage" class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+            <p class="font-bold">¡Ops!</p>
+            <p>{{ errorMessage }}</p>
+          </div>
+        </mat-dialog-content>
 
-          <mat-dialog-actions align="end">
-              <button mat-flat-button color="warn" (click)="buyProduct(data.id, quantity)">Buy</button>
-              <button mat-button (click)="closeDialog()">Close</button>
-          </mat-dialog-actions>
-        </ng-template>
-        <!--
-        <ng-template #detailDialogTemplate let-data>
-          <h2 mat-dialog-title>Atention</h2>
-          <mat-dialog-content>
-              <p> Are you sure you want to buy this item: <strong> {{data.name}} </strong> </p>
-          </mat-dialog-content>
-          <mat-dialog-actions align="end">
-              <button mat-flat-button color="warn" (click)="buyProduct(data.id)">Yes</button>
-              <button mat-button (click)="closeDialog()">Close</button>
-          </mat-dialog-actions>
-        </ng-template>
-        -->
-      </div>
+        <mat-dialog-actions align="end">
+            <button mat-flat-button color="warn" (click)="buyProduct(data.id, quantity)">Buy</button>
+            <button mat-button (click)="closeDialog()">Close</button>
+        </mat-dialog-actions>
+      </ng-template>
+      <!--
+      <ng-template #detailDialogTemplate let-data>
+        <h2 mat-dialog-title>Atention</h2>
+        <mat-dialog-content>
+            <p> Are you sure you want to buy this item: <strong> {{data.name}} </strong> </p>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-flat-button color="warn" (click)="buyProduct(data.id)">Yes</button>
+            <button mat-button (click)="closeDialog()">Close</button>
+        </mat-dialog-actions>
+      </ng-template>
+      -->
     </div>
+  </div>
 </main>

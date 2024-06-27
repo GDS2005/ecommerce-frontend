@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ImageService {
 
-  private apiUrl = 'http://localhost:3000/v1/files/';
+  private apiUrl = 'http://localhost:3002/v1/files/';
 
   constructor(private http: HttpClient) {  }
 
