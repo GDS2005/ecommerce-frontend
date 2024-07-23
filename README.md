@@ -14,17 +14,12 @@
 <h3>Installing</h3>
 <ol>
 <li>Clone the repository to your local machine:</li>
-<pre><code>git clone https://github.com/GDS2005/mean-usermanager-frontend.git</code></pre>
+<pre><code>git clone https://github.com/GDS2005/ecommerce-frontend.git</code></pre>
 
 <li>Install project dependencies:</li>
 <pre><code>npm install</code></pre>
 
-<h2>Development</h2>
-<p>While working on the project, ensure that the virtual environment is activated. You can run the Django development server using the following command:</p>
-<pre><code>ng serve</code></pre>
-
-<h2>Contributing</h2>
-<p>Please read <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for details on our code of conduct, and the process for submitting pull requests to us.</p>
-
-<h2>License</h2>
-<p>This project is licensed under the Pharmatube License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<h2>Connect with the other microservices</h2>
+<pre><code>git clone https://github.com/GDS2005/ecommerce-user-service.git</code></pre>
+<pre><code>git clone https://github.com/GDS2005/ecommerce-product-service.git</code></pre>
+<pre><code>git clone https://github.com/GDS2005/ecommerce-transaction-service.git</code></pre>

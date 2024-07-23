@@ -67,16 +67,18 @@ export class ProductFormComponent implements OnInit {
   onSubmit(): void {
     let imageUrl = this.productForm.value.image;
 
-  if (this.selectedFile) {
-    imageUrl = this.selectedFile.name;
-    this.imageService.uploadImage(this.selectedFile)?.subscribe();
-  }
+    if (this.selectedFile) {
+      imageUrl = this.selectedFile.name;
+      this.imageService.uploadImage(this.selectedFile)?.subscribe();
+    }
+
     const productData: ProductCreate = {
       name: this.productForm.value.name,
       description: this.productForm.value.description,
       image: imageUrl,
       price: this.productForm.value.price,
       stock: this.productForm.value.stock,
+      user: localStorage.getItem('user') as string | undefined,
     };
 
     if (this.mode === "modify"){

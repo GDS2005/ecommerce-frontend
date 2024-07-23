@@ -31,6 +31,10 @@ export class HeaderComponent implements OnInit {
     return localStorage.getItem('role') === 'admin';
   }
 
+  isUser(): boolean {
+    return localStorage.getItem('role') === 'user';
+  }
+
   logout(){
     this.auth.logout();
   }

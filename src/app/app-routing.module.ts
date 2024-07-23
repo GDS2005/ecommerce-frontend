@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
 import { ErrorComponent } from './components/error/error.component';
 import { NoAuthGuard } from './guard/no-auth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
@@ -17,9 +18,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'transaction',
+    loadChildren: () => import('./components/transaction/transaction.module').then(m => m.TransactionModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule),
     canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'home',
+    component:HomeComponent
   },
   {
     path: 'error',

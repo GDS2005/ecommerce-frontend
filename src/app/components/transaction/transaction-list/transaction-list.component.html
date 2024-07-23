@@ -1,0 +1,45 @@
+<header class="bg-white shadow">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">List of Transactions</h1>
+  </div>
+</header>
+<main>
+  <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8" style="overflow-x: auto;">
+      <mat-table [dataSource]="transactions" class="mat-elevation-z8 sticky-table">
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="seller">
+              <mat-header-cell *matHeaderCellDef class="sticky-column">Seller</mat-header-cell>
+              <mat-cell *matCellDef="let transaction" class="sticky-column"><strong>{{ transaction.seller }}</strong></mat-cell>
+          </ng-container>
+  
+          <!-- Description Column -->
+          <ng-container matColumnDef="buyer">
+              <mat-header-cell *matHeaderCellDef>Buyer</mat-header-cell>
+              <mat-cell *matCellDef="let transaction" >{{ transaction.buyer }}</mat-cell>
+          </ng-container>
+  
+          <!-- Price Column -->
+          <ng-container matColumnDef="product">
+              <mat-header-cell *matHeaderCellDef>Product</mat-header-cell>
+              <mat-cell *matCellDef="let transaction">{{ transaction.product }}</mat-cell>
+          </ng-container>
+
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+            <mat-cell *matCellDef="let transaction">{{ transaction.quantity }}</mat-cell>
+          </ng-container>
+  
+          <!-- Stock Column -->
+          <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+              <mat-cell *matCellDef="let transaction"> {{ transaction.status }} </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+  </div>
+</main>
+

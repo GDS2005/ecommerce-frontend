@@ -1,7 +1,9 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/interfaces/product';
+import { TransactionProduct } from 'src/app/interfaces/transaction';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -11,6 +13,8 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class ProductCardComponent {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
+  private cart = new BehaviorSubject<TransactionProduct[]>([]);
+  cart$ = this.cart.asObservable();
   products: Product[] = [];
   quantity!: number;
   errorMessage!: string;
@@ -25,33 +29,29 @@ export class ProductCardComponent {
     });
   }
 
-  buyProduct(productId: string, quantity: number): void {
+  addToCart(product: Product, quantity: number) {
+    const currentCart = this.cart.value;
+    const existingProduct = currentCart.find(item => item.productId._id === product._id);
 
-    if (1 > 1) {
-
-      if (0 >= 0) {
-        
-      } else {
-        this.errorMessage = "Not enough stock available for this product.";
-      }
+    if (existingProduct) {
+      existingProduct.quantity += quantity;
     } else {
-      this.errorMessage = "There is not enough stock for this product.";
+      currentCart.push({ productId: product, quantity });
     }
+
+    this.cart.next(currentCart);
   }
 
-  openDialog(product: Product): void {
-    this.dialog.open(this.detailDialogTemplate, {
-        width: '400px',
-        data: product
-    });
+  removeFromCart(productId: string) {
+    const currentCart = this.cart.value.filter(item => item.productId._id !== productId);
+    this.cart.next(currentCart);
   }
 
-  closeDialog(): void {
-      this.dialog.closeAll();
-      this.errorMessage = '';
+  clearCart() {
+    this.cart.next([]);
   }
 
   detail(productId: string): void {
-    this.router.navigate(['/product/detail', productId]);
+    this.router.navigate(['/transaction/cart', productId]);
   }
 }

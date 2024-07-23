@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProductRoutingModule } from './product-routing.module';
+import { TransactionRoutingModule } from './transaction-routing.module';
+import { TransactionComponent } from './transaction.component';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -14,29 +16,30 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ProductComponent } from './product.component';
-import { ProductCardComponent } from './product-card/product-card.component';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { CartComponent } from './cart/cart.component';
+
 
 @NgModule({
-  declarations: [ProductComponent, ProductCardComponent, ProductFormComponent, ProductListComponent],
+  declarations: [
+    TransactionComponent,
+    TransactionListComponent,
+    CartComponent
+  ],
   imports: [
     CommonModule,
-    ProductRoutingModule,
+    TransactionRoutingModule,
     MatTableModule,
+    MatFormFieldModule,
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    MatDialogModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  exports: [ProductCardComponent]
+    MatDialogModule
+  ]
 })
-export class ProductModule { }
+export class TransactionModule { }

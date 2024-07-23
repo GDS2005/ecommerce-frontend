@@ -22,6 +22,7 @@ export class LoginComponent {
       (response) => {
         this.authService.saveTokens(response.tokens);
         localStorage.setItem('role', response.role);
+        localStorage.setItem('user', response.id);
         this.router.navigate(['product']);
       },
       (error) => {

@@ -41,7 +41,17 @@
                 </svg>
               </a>
             </span>
-          </div>
+            </div>
+            <p class="leading-relaxed"> {{ product.description }}</p>
+            <p *ngIf="product.stock > 0">Stock: {{ product.stock }}</p>
+            <p *ngIf="product.stock === 0"><strong>Not in stock</strong></p>
+
+            <div class="flex">
+                <span class="title-font font-medium text-2xl text-gray-900">${{ product.price }}</span>
+                <button *ngIf="product.stock > 0" class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" (click)="openDialog(product)">Buy</button>
+                <button *ngIf="product.stock === 0" routerLink="/product" routerLinkActive="active" ariaCurrentWhenActive="page" class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Return</button>
+            </div>
+        </div>
 
         <!-- Modal -->
         <ng-template #detailDialogTemplate let-data>
@@ -56,11 +66,10 @@
             </div>
           </mat-dialog-content>
           <mat-dialog-actions align="end">
-              <button mat-flat-button color="warn" >Buy</button>
+              <button mat-flat-button color="warn" (click)="buy(data._id, quantity)">Buy</button>
               <button mat-button (click)="closeDialog()">Close</button>
           </mat-dialog-actions>
         </ng-template>
       </div>
     </div>
-
-
+  </section>
