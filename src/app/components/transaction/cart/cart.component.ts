@@ -57,17 +57,21 @@ export class CartComponent {
 
   buy(productId: string, quantity: number): void {
 
-    if((this.product.stock - quantity) > 0){
+    var newStock = this.product.stock - quantity;
+
+    console.log(newStock);
+    if(newStock > -1){
       const productData: ProductCreate = {
         name: this.product.name,
         description: this.product.description,
         image: this.product.image,
         price: this.product.price,
         user: this.product.user,
-        stock: this.product.stock - quantity,
+        stock: newStock,
       };
       
       this.productService.updateProduct(productId, productData).subscribe(response => {
+        this.closeDialog();
       }, error => {
         this.errorMessage =  error;
       });
