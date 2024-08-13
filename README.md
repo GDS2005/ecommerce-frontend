@@ -19,6 +19,12 @@
 <li>Install project dependencies:</li>
 <pre><code>npm install</code></pre>
 
+<h3>Building docker</h3>
+<code> docker build --tag 'rest-frontend' .</code>
+
+<h3>Running docker</h3>
+<code> docker run -p 4200:4200 'rest-frontend' </code>
+
 <h2>Connect with the other microservices</h2>
 <pre><code>git clone https://github.com/GDS2005/ecommerce-user-service.git</code></pre>
 <pre><code>git clone https://github.com/GDS2005/ecommerce-product-service.git</code></pre>
