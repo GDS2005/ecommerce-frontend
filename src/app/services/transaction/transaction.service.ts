@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Transaction, TransactionResults } from 'src/app/interfaces/transaction';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
-  private apiUrl = 'http://localhost:3003/v1/'; // Adjust the base URL as needed
+  private apiUrl = `http://${environment.env}:3003/v1`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,11 +25,7 @@ export class TransactionService {
   createTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(this.apiUrl, transaction);
   }
-/*
-  updateTransaction(id: string, transaction: Transaction): Observable<Transaction> {
-    return this.http.put<Transaction>(`${this.apiUrl}/${id}`, transaction);
-  }
-*/
+
   deleteTransaction(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

@@ -31,7 +31,7 @@
                 <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
                 <mat-cell *matCellDef="let product">
                   <div class="image-container">
-                    <img [src]="'http://localhost:3002/v1/files/' + product.image" alt="Product Image">
+                    <img [src]="imageUrl + product.image" alt="Product Image">
                   </div>
                 </mat-cell>
               </ng-container>

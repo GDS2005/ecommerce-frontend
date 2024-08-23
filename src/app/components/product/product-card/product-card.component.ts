@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/interfaces/product';
 import { TransactionProduct } from 'src/app/interfaces/transaction';
 import { ProductService } from 'src/app/services/product/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -14,6 +15,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ProductCardComponent {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   private cart = new BehaviorSubject<TransactionProduct[]>([]);
+  imageUrl: string = `http://${environment.env}:3002/v1/files/`;
   cart$ = this.cart.asObservable();
   products: Product[] = [];
   quantity!: number;

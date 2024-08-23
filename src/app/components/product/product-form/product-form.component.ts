@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCreate } from 'src/app/interfaces/product';
 import { ImageService } from 'src/app/services/image/image.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-form',
@@ -19,6 +20,7 @@ export class ProductFormComponent implements OnInit {
   id!: String;
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  imageUrl: string = `http://${environment.env}:3002/v1/files/`;
 
   constructor(
     private productService: ProductService,
@@ -41,7 +43,7 @@ export class ProductFormComponent implements OnInit {
           if (product) {
             /* Populate for with data */
             this.productForm.patchValue(product); 
-            this.imagePreview = 'http://localhost:3002/v1/files/'+product.image;
+            this.imagePreview = this.imageUrl + product.image;
           }else {
             console.error('Product not found');
           }

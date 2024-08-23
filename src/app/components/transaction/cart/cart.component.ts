@@ -5,7 +5,7 @@ import { Product, ProductCreate } from 'src/app/interfaces/product';
 import { Transaction } from 'src/app/interfaces/transaction';
 import { ProductService } from 'src/app/services/product/product.service';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +14,7 @@ import { TransactionService } from 'src/app/services/transaction/transaction.ser
 })
 export class CartComponent {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
+  imageUrl: string = `http://${environment.env}:3002/v1/files/`;
   errorMessage!: string;
   product!: Product;
   quantity!: number;

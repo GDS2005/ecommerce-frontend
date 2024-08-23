@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl = 'http://localhost:3001/v1';
+  private apiUrl = `http://${environment.env}:3001/v1`;
+
   private readonly ACCESS_TOKEN_KEY = 'access_token';
 
   constructor(private http: HttpClient, private router: Router) { }

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +13,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ProductListComponent {
   @ViewChild('detailDialogTemplate') detailDialogTemplate!: TemplateRef<any>;
   products: Product[] = [];
+  imageUrl: string = `http://${environment.env}:3002/v1/files/`;
   displayedColumns: string[] = ['name', 'description', 'price', 'image', 'stock', 'actions'];
 
   constructor(private productService: ProductService, private router: Router, private dialog: MatDialog) { }

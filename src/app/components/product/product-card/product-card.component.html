@@ -11,7 +11,7 @@
             </mat-card-header>
             <div class="p-6">
               <div class="image-container">
-                <img mat-card-image src="http://localhost:3002/v1/files/{{product.image}}" alt="{{product.image}}" class="object-contain w-full h-full">
+                <img mat-card-image [src]="imageUrl + product.image" alt="{{product.image}}" class="object-contain w-full h-full">
               </div>
             </div>
             <mat-card-content class="h-20">

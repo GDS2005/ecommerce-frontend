@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
 
-  private apiUrl = 'http://localhost:3002/v1/files/';
+  private apiUrl = `http://${environment.env}:3002/v1/files/`;
 
   constructor(private http: HttpClient) {  }
 
@@ -20,16 +21,4 @@ export class ImageService {
 
     return this.http.post(this.apiUrl, formData);
   }
-
-  /*getImage(name: string | null) {
-    if (!name) {
-      return;
-    } 
-
-    const options = {
-      params: { name } 
-    };
-
-    return this.http.get(this.apiUrl, options);
-  }*/
 }
