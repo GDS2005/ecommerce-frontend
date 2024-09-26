@@ -3,23 +3,28 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { AuthGuard } from 'src/app/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: ProductCardComponent
+    
   },
   {
     path: 'create',
-    component: ProductFormComponent
+    component: ProductFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'modify/:id',
-    component: ProductFormComponent
+    component: ProductFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'list',
-    component: ProductListComponent
+    component: ProductListComponent,
+    canActivate: [AuthGuard],
   }
 ];
 

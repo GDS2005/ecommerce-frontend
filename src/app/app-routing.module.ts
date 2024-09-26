@@ -14,8 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'product',
-    loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule)
   },
   {
     path: 'transaction',
@@ -37,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'auth/login'
+    redirectTo: 'product'
   },
 ];
 

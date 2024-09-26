@@ -1,10 +1,10 @@
-<header class="bg-white shadow">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">List of Products</h1>
-        <a mat-flat-button color="primary" routerLink="/product/create" routerLinkActive="active" ariaCurrentWhenActive="page">New product</a>
-    </div>
-</header>
-  <main>
+<main *ngIf="products.length > 0">
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">List of Products</h1>
+            <a mat-flat-button color="primary" routerLink="/product/create" routerLinkActive="active" ariaCurrentWhenActive="page">New product</a>
+        </div>
+    </header>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8" style="overflow-x: auto;">
         <mat-table [dataSource]="products" class="mat-elevation-z8 sticky-table">
     
@@ -71,4 +71,12 @@
             <button mat-button (click)="closeDialog()">Cancel</button>
         </mat-dialog-actions>
     </ng-template>
+</main>
+
+<main *ngIf="products.length === 0" class="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <div class="text-center">
+      <p class="text-base font-semibold text-indigo-600">¡Ups!</p>
+      <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">We having issues to load products. Try again later</h1>
+      <p class="mt-6 text-base leading-7 text-gray-600">102 ERR_CONNECTION_REFUSED</p>
+    </div>
 </main>
