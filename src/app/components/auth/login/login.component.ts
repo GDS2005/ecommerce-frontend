@@ -18,6 +18,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   login(): void {
+    console.log("Hola");
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
         this.authService.saveTokens(response.tokens);
